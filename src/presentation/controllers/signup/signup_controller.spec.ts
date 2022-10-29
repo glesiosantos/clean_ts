@@ -1,7 +1,5 @@
-import { AccountModel } from '../../domain/models/account_model'
-import { AddAccount, AddAccountModel } from '../../domain/usecase/add_account'
-import { InvalidParamError, MissingParamError, ServerError } from '../errors'
-import { EmailValidator } from '../protocols'
+import { AccountModel, AddAccount, AddAccountModel, EmailValidator } from './signup_protocols'
+import { InvalidParamError, MissingParamError } from '../../errors'
 import { SignUpController } from './signup_controller'
 
 type SutTypes = {
@@ -161,7 +159,7 @@ describe('SignUp Controller ', () => {
     }
     const httpResponse = sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(500)
-    expect(httpResponse.body).toEqual(new ServerError())
+    expect(httpResponse.body).toEqual(new Error())
   })
 
   it('should calls AddAccount with correct values', () => {
@@ -196,6 +194,6 @@ describe('SignUp Controller ', () => {
     }
     const httpResponse = sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(500)
-    expect(httpResponse.body).toEqual(new ServerError())
+    expect(httpResponse.body).toEqual(new Error())
   })
 })
