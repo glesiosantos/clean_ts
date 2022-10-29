@@ -4,13 +4,23 @@ import { ServerError } from '../errors/server_error'
 import { EmailValidator } from '../protocols/email_validator'
 import { SignUpController } from './signup_controller'
 
-const makeSut = (): any => {
+type SutTypes = {
+  sut: SignUpController
+  emailValidatorStub: EmailValidator
+}
+
+const makeEmailValidator = (): EmailValidator => {
   class EmailValidatorStub implements EmailValidator {
     isValid(email: string): boolean {
       return true
     }
   }
-  const emailValidatorStub = new EmailValidatorStub()
+
+  return new EmailValidatorStub()
+}
+
+const makeSut = (): SutTypes => {
+  const emailValidatorStub = makeEmailValidator()
   const sut = new SignUpController(emailValidatorStub)
 
   return { sut, emailValidatorStub }
