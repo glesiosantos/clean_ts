@@ -46,6 +46,22 @@ describe('Name of the group', () => {
     expect(handleSpy).toHaveBeenCalledWith(httpRequest)
   })
 
+  // it('should throw when controller handler throws', async () => {
+
+  //   const { sut, controllerStub } = makeSut()
+  //   jest.spyOn(controllerStub, 'handle').mockImplementationOnce(() => { throw new Error() })
+  //   const httpRequest = {
+  //     body: {
+  //       name: 'any_name',
+  //       email: 'any_mail@email.com',
+  //       password: 'any_password',
+  //       passwordConfirmation: 'any_password'
+  //     }
+  //   }
+  //   await sut.handle(httpRequest)
+  //   expect(handleSpy).toHaveBeenCalledWith(httpRequest)
+  // })
+
   it('should return the same result of the controller', async () => {
     const { sut } = makeSut()
     const httpRequest = {
