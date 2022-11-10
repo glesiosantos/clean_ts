@@ -12,5 +12,5 @@ export const makeSignUpController = (): Controller => {
   const addAccount = new DbAddAccount(encrypter, addAccountRepository)
   const emailValidator = new EmailValidatorAdapter()
   const signupController = new SignUpController(emailValidator, addAccount)
-  return new LogErrorControllerDecorator(signupController)
+  return new LogErrorControllerDecorator(signupController, null)
 }
