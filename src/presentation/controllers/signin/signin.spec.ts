@@ -1,8 +1,7 @@
-import { Authentication } from '../../../domain/usecase/authentication'
 import { InvalidParamError, MissingParamError, UnauthorizedError } from '../../errors'
 import { badRequest, serverError, unauthorized } from '../../helpers/http_helper'
-import { EmailValidator, HttpRequest } from '../signup/signup_protocols'
 import { SignInController } from './signin'
+import { Authentication, EmailValidator, HttpRequest } from './signin_protocols'
 
 type SutType = {
   sut: SignInController
@@ -89,7 +88,7 @@ describe('Sign In Controller', () => {
     expect(authSpy).toHaveBeenCalledWith(makeFakeRequest().body.email, makeFakeRequest().body.password)
   })
 
-  it('should return unauthorized when Authentication return null', async () => {
+  it('should return unauthorized when Authentication return null by invalid credentials', async () => {
     const { sut, authenticationStub } = makeSut()
     jest.spyOn(authenticationStub, 'auth').mockReturnValueOnce(new Promise(resolve => resolve(null)))
     const httpResponse = await sut.handle(makeFakeRequest())
