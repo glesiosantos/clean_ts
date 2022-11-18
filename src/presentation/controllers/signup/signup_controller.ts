@@ -6,7 +6,9 @@ export class SignUpController implements Controller {
   constructor(private readonly emailValidator: EmailValidator, private readonly addAccount: AddAccount, private readonly validation: Validation) { }
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      this.validation.validate(httpRequest.body)
+      const error = this.validation.validate(httpRequest.body)
+
+      if (error) return badRequest(error)
 
       const requiredFields = ['name', 'email', 'password', 'passwordConfirmation']
 
