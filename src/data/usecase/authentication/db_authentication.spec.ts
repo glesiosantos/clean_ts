@@ -122,7 +122,7 @@ describe('DB Authentication UseCase', () => {
     expect(generateSpy).toHaveBeenCalledWith(makeFakeAccount().id)
   })
 
-  it('should return null when TokenGeneration throws', async () => {
+  it('should return throws when TokenGeneration throws', async () => {
     const { sut, tokenGeneratorStub } = makeSut()
     jest.spyOn(tokenGeneratorStub, 'generate').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
     const promise = sut.auth(makeAuthentication())
@@ -140,5 +140,12 @@ describe('DB Authentication UseCase', () => {
     const udpdateSpy = jest.spyOn(updateAccessTokenRepositoryStub, 'update')
     await sut.auth(makeAuthentication())
     expect(udpdateSpy).toHaveBeenCalledWith(makeFakeAccount().id, 'any_token')
+  })
+
+  it('should return throws when UpdateAccessTokenRepository throws', async () => {
+    const { sut, updateAccessTokenRepositoryStub } = makeSut()
+    jest.spyOn(updateAccessTokenRepositoryStub, 'update').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
+    const promise = sut.auth(makeAuthentication())
+    await expect(promise).rejects.toThrow()
   })
 })
