@@ -116,7 +116,7 @@ describe('DB Authentication UseCase', () => {
     await expect(promise).rejects.toThrow()
   })
 
-  it('should return null when TokenGeneration throws', async () => {
+  it('should return a Token on success', async () => {
     const { sut } = makeSut()
     const accessToken = await sut.auth(makeAuthentication())
     expect(accessToken).toBe('any_token')
