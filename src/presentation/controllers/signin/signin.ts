@@ -9,9 +9,9 @@ export class SignInController implements Controller {
       const error = this.validation.validate(httpRequest.body)
 
       if (error) { return badRequest(error) }
-      const { email, password } = httpRequest.body
+      const authentication = httpRequest.body
 
-      const accessToken = await this.authentication.auth(email, password)
+      const accessToken = await this.authentication.auth(authentication)
 
       if (!accessToken) {
         return unauthorized(new UnauthorizedError())

@@ -1,7 +1,7 @@
 import { MissingParamError, UnauthorizedError } from '../../errors'
 import { badRequest, ok, serverError, unauthorized } from '../../helpers/http/http_helper'
 import { SignInController } from './signin'
-import { Authentication, HttpRequest, Validation } from './signin_protocols'
+import { Authentication, AuthenticationModel, HttpRequest, Validation } from './signin_protocols'
 
 type SutType = {
   sut: SignInController
@@ -18,7 +18,7 @@ const makeFakeRequest = (): HttpRequest => ({
 
 const makeAuthentication = (): Authentication => {
   class AuthenticationStub implements Authentication {
-    async auth(email: string, password: string): Promise<string> {
+    async auth(authentication: AuthenticationModel): Promise<string> {
       return new Promise(resolve => resolve('any_token'))
     }
   }
@@ -48,7 +48,7 @@ describe('Sign In Controller', () => {
     const { sut, authenticationStub } = makeSut()
     const authSpy = jest.spyOn(authenticationStub, 'auth')
     await sut.handle(makeFakeRequest())
-    expect(authSpy).toHaveBeenCalledWith(makeFakeRequest().body.email, makeFakeRequest().body.password)
+    expect(authSpy).toHaveBeenCalledWith({ email: makeFakeRequest().body.email, password: makeFakeRequest().body.password })
   })
 
   it('should return unauthorized when Authentication return null by invalid credentials', async () => {
