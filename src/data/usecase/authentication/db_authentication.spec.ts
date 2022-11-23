@@ -75,6 +75,13 @@ describe('DB Authentication UseCase', () => {
     expect(compareSpy).toHaveBeenCalledWith(makeAuthentication().password, makeFakeAccount().password)
   })
 
+  it('should return null when HashedComparer return false', async () => {
+    const { sut, hashedComparerStub } = makeSut()
+    jest.spyOn(hashedComparerStub, 'compare').mockReturnValueOnce(new Promise(resolve => resolve(false)))
+    const accessToken = await sut.auth(makeAuthentication())
+    expect(accessToken).toBeNull()
+  })
+
   it('should throw when HashedComparer throws', async () => {
     const { sut, hashedComparerStub } = makeSut()
     jest.spyOn(hashedComparerStub, 'compare').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
