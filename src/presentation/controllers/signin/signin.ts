@@ -1,5 +1,5 @@
 import { UnauthorizedError } from '../../errors'
-import { badRequest, ok, serverError, unauthorized } from '../../helpers/http_helper'
+import { badRequest, ok, serverError, unauthorized } from '../../helpers/http/http_helper'
 import { Authentication, Controller, HttpRequest, HttpResponse, Validation } from './signin_protocols'
 
 export class SignInController implements Controller {
