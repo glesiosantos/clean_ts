@@ -55,4 +55,11 @@ describe('Bcrypt Adapter', () => {
     const isValid = await sut.compare('valid_password', 'any_hashed')
     expect(isValid).toBe(false)
   })
+
+  it('should throw when compare method throws', async () => {
+    const sut = makeSut()
+    jest.spyOn(bcrypt, 'compare').mockImplementationOnce(() => { throw new Error() })
+    const promise = sut.compare('valid_password', 'any_hashed')
+    await expect(promise).rejects.toThrow()
+  })
 })
