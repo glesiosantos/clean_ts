@@ -42,4 +42,10 @@ describe('Bcrypt Adapter', () => {
     await sut.compare('valid_password', 'any_hashed')
     expect(hashSpy).toBeCalledWith('valid_password', 'any_hashed')
   })
+
+  it('should return true when compare succeeds', async () => {
+    const sut = makeSut()
+    const isValid = await sut.compare('valid_password', 'any_hashed')
+    expect(isValid).toBe(true)
+  })
 })
