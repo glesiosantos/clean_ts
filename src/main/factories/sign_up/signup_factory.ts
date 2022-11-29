@@ -9,8 +9,9 @@ import { LogErrorControllerDecorator } from '../../decorators/log_error_controll
 import { makeSignUpValidationComposite } from './signup_validation_composite_factory'
 
 export const makeSignUpController = (): Controller => {
+  const salt = 12
   const addAccountRepository = new AccountMongoRepository()
-  const encrypter = new BcryptAdapter()
+  const encrypter = new BcryptAdapter(salt)
   const addAccount = new DbAddAccount(encrypter, addAccountRepository)
   const emailValidator = new EmailValidatorAdapter()
   const validationCompose = makeSignUpValidationComposite(emailValidator)
