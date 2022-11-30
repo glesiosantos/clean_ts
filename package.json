@@ -1,6 +1,6 @@
 {
   "name": "clean_node_ts",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "index.js",
   "repository": "https://github.com/glesiosantos/clean_node_ts.git",
   "author": "Glêsio Santos <glesio.s.santos@gmail.com>",
