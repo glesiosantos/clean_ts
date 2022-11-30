@@ -4,7 +4,7 @@ import { AccountMongoRepository } from '../../../infra/db/account_mongo_reposito
 import { LogErrorMongoRepository } from '../../../infra/db/log_error_mongo_repository'
 import { SignUpController } from '../../../presentation/controllers/signup/signup_controller'
 import { Controller } from '../../../presentation/protocols'
-import { EmailValidatorAdapter } from '../../../utils/email_validator_adapter'
+import { EmailValidatorAdapter } from '../../adapters/validators/email_validator_adapter'
 import { LogErrorControllerDecorator } from '../../decorators/log_error_controller_decorator'
 import { makeSignUpValidationComposite } from './signup_validation_composite_factory'
 
