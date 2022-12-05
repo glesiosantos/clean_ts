@@ -14,9 +14,9 @@ services:
     image: node:18
     working_dir: /home/glesio/.storage/clean-node-api
     restart: always
-    command: bash -c "npm install --omit=dev && npm run debug"
+    command: bash -c "npm install --omit=dev && npm install nodemon -D && npm run debug"
     volumes:
-      - ./dist:/home/glesio/.storage/clean-node-api/dist
+      - ./dist/:/home/glesio/.storage/clean-node-api/dist/
       - ./package.json:/home/glesio/.storage/clean-node-api/package.json
     ports:
       - "3000:3000"
