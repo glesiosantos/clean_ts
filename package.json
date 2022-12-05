@@ -50,5 +50,8 @@
     "mongodb": "^4.11.0",
     "supertest": "^6.3.1",
     "validator": "^13.7.0"
+  },
+  "engines": {
+    "node": "18.x"
   }
 }
