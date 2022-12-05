@@ -11,13 +11,15 @@ services:
       - "27017:27017"
   api:
     container_name: api-clean
-    build: .
-    image: clean-node-api
+    image: node:18
+    working_dir: /home/glesio/.storage/clean-node-api
     restart: always
-    command: npm start
+    command: bash -c "npm install --omit=dev && npm run debug"
     volumes:
       - ./dist:/home/glesio/.storage/clean-node-api/dist
+      - ./package.json:/home/glesio/.storage/clean-node-api/package.json
     ports:
       - "3000:3000"
+      - "9222:9222"
     links:
       - mongo
