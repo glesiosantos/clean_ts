@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  mongo:
+    container_name: clean_ts_mongo
+    image: mongo:latest
+    restart: always
+    volumes:
+      - ./data:/data/db
+    ports:
+      - "27017:27017"
+  api:
+    container_name: api-clean
+    build: .
+    image: clean-node-api
+    restart: always
+    command: npm start
+    volumes:
+      - ./dist: /home/glesio/.storage/clean-node-api/dist
+    ports:
+      - "3000:3000"
+    links:
+      - mongo
