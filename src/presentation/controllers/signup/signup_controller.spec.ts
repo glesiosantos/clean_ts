@@ -28,7 +28,7 @@ const makeFakeAccount = (): AccountModel => ({
 
 const makeValidation = (): Validation => {
   class ValidationStub implements Validation {
-    validate (input: any): Error {
+    validate (input: any): Error | null {
       return null
     }
   }
@@ -79,9 +79,9 @@ describe('SignUp Controller ', () => {
 
   it('should return 500 when AddAccount throws', async () => {
     const { sut, addAccountStub } = makeSut()
-    jest.spyOn(addAccountStub, 'add').mockImplementationOnce(() => { throw new ServerError(null) })
+    jest.spyOn(addAccountStub, 'add').mockImplementationOnce(() => { throw new ServerError() })
     const httpResponse = await sut.handle(makeFakeRequest())
-    expect(httpResponse).toEqual(serverError(new ServerError(null)))
+    expect(httpResponse).toEqual(serverError(new ServerError()))
   })
 
   it('should return 200 on success', async () => {
