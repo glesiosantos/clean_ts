@@ -5,7 +5,7 @@
     "target": "es2021",
     "esModuleInterop": true,
     "sourceMap": true,
-    "rootDir": "src"
+    "rootDir": "src",
   },
   "include": [
     "src"
