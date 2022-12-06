@@ -1,7 +1,6 @@
 node_modules
 coverage
 dist
-data
 globalConfig.json
 
 yarn.lock
