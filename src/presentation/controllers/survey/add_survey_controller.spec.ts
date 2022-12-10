@@ -1,4 +1,4 @@
-import { AddSurvey, AddSurveyModel, badRequest, Controller, HttpRequest, serverError, Validation } from './survey_protocols'
+import { AddSurvey, AddSurveyModel, badRequest, Controller, HttpRequest, noContent, serverError, Validation } from './survey_protocols'
 import { AddSurveyController } from './add_survey_controller'
 
 type SutTypes = {
@@ -75,5 +75,11 @@ describe('Add Survey Controller', () => {
     jest.spyOn(addSurveyStub, 'add').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
     const httpResponse = await sut.handle(makeFakeRequest())
     expect(httpResponse).toEqual(serverError(new Error()))
+  })
+
+  it('should return noContent on success', async () => {
+    const { sut } = makeSut()
+    const httpResponse = await sut.handle(makeFakeRequest())
+    expect(httpResponse).toEqual(noContent())
   })
 })
