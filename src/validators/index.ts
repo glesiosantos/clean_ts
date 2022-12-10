@@ -1,5 +1,5 @@
 export * from './compared_fields_validation'
 export * from './email_field_validation'
 export * from './required_fields_validation'
-export * from '../../protocols/validation'
+export * from './../presentation/protocols/validation'
 export * from './validation_composite'

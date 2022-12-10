@@ -1,6 +1,6 @@
+import { InvalidParamError } from '../presentation/errors'
+import { EmailValidator } from '../presentation/protocols/email_validator'
 import { EmailFieldValidation } from './email_field_validation'
-import { EmailValidator } from '../../protocols/email_validator'
-import { InvalidParamError } from '../../errors'
 
 type SutTypes = {
   sut: EmailFieldValidation
