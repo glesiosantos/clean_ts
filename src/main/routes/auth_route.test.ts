@@ -3,11 +3,12 @@ import { Collection } from 'mongodb'
 import request from 'supertest'
 import { MongoHelper } from '../../infra/db/helpers/mongo_helper'
 import app from '../config/app'
+import env from '../config/env'
 
 describe('Auth Route', () => {
   let accountCollection: Collection
 
-  beforeAll(async () => await MongoHelper.connect(process.env.MONGO_URL))
+  beforeAll(async () => await MongoHelper.connect(env.mongoUrl))
 
   afterAll(async () => await MongoHelper.disconnect())
 
