@@ -1,5 +1,5 @@
 import { HttpRequest, HttpResponse } from '../../protocols'
-import { AddSurvey, badRequest, Controller, serverError, Validation } from './survey_protocols'
+import { AddSurvey, badRequest, Controller, noContent, serverError, Validation } from './survey_protocols'
 
 export class AddSurveyController implements Controller {
   constructor(private readonly validation: Validation, private readonly addSurvey: AddSurvey) { }
@@ -8,7 +8,7 @@ export class AddSurveyController implements Controller {
       const error = this.validation.validate(httpRequest.body)
       if (error) return badRequest(error)
       await this.addSurvey.add(httpRequest.body)
-      return null
+      return noContent()
     } catch (error) {
       return serverError(error)
     }
