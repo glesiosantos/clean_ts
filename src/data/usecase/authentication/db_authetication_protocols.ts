@@ -1,5 +1,5 @@
 export * from '../../../domain/usecase/authentication'
 export * from '../../protocols/cryptograph/hashed_comparer'
 export * from '../../protocols/cryptograph/encrypter'
-export * from '../../protocols/db/load_account_by_email_repository'
-export * from '../../protocols/db/update_access_token_repository'
+export * from '../../protocols/db/account/load_account_by_email_repository'
+export * from '../../protocols/db/account/update_access_token_repository'
