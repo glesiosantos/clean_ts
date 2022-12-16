@@ -23,7 +23,7 @@ type SutTypes = {
   loadAccountByTokenStub: LoadAccountByToken
 }
 
-const makeSut = (): SutTypes => {
+const makeSut = (role?: string): SutTypes => {
   class LoadAccountByTokenStub implements LoadAccountByToken {
     async load (accountToken: string, role?: string): Promise<AccountModel | null> {
       return new Promise(resolve => resolve(makeFakeAccount()))
@@ -31,7 +31,7 @@ const makeSut = (): SutTypes => {
   }
 
   const loadAccountByTokenStub = new LoadAccountByTokenStub()
-  const sut = new AuthMiddlewares(loadAccountByTokenStub)
+  const sut = new AuthMiddlewares(loadAccountByTokenStub, role)
   return { sut, loadAccountByTokenStub }
 }
 
@@ -43,10 +43,11 @@ describe('Auth Middlewares', () => {
   })
 
   it('should calls LoadAccountByToken with correct values', async () => {
-    const { sut, loadAccountByTokenStub } = makeSut()
+    const role = 'any_role'
+    const { sut, loadAccountByTokenStub } = makeSut(role)
     const loadSpy = jest.spyOn(loadAccountByTokenStub, 'load')
     await sut.handle(makeFakeRequest())
-    expect(loadSpy).toHaveBeenCalledWith('any_token')
+    expect(loadSpy).toHaveBeenCalledWith('any_token', role)
   })
 
   it('should return 403 when LoadAccountByToken returns nulls', async () => {
