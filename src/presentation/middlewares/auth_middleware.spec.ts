@@ -12,6 +12,12 @@ const makeFakeAccount = (): AccountModel => ({
   password: 'hashed_password'
 })
 
+const makeFakeRequest = (): HttpRequest => ({
+  headers: {
+    'x-access-token': 'any_token'
+  }
+})
+
 type SutTypes = {
   sut: AuthMiddlewares
   loadAccountByTokenStub: LoadAccountByToken
@@ -32,20 +38,14 @@ const makeSut = (): SutTypes => {
 describe('Auth Middlewares', () => {
   it('should return 403 when no x-access-token in hearders', async () => {
     const { sut } = makeSut()
-    const httpRequest: HttpRequest = {}
-    const httpResponse = await sut.handle(httpRequest)
+    const httpResponse = await sut.handle({})
     expect(httpResponse).toEqual(forbidden(new AccessDeneidError()))
   })
 
   it('should calls LoadAccountByToken with correct values', async () => {
     const { sut, loadAccountByTokenStub } = makeSut()
     const loadSpy = jest.spyOn(loadAccountByTokenStub, 'load')
-    const httpRequest: HttpRequest = {
-      headers: {
-        'x-access-token': 'any_token'
-      }
-    }
-    await sut.handle(httpRequest)
+    await sut.handle(makeFakeRequest())
     expect(loadSpy).toHaveBeenCalledWith('any_token')
   })
 })
